@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account – SecureAuth</title>
+  <meta name="description" content="Register a secure user account on SecureAuth with industry-standard bcrypt encryption.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <a href="index.html" class="brand">
+      <div class="brand-icon">🛡️</div>
+      Secure<span>Auth</span>
+    </a>
+    <div class="nav-auth">
+      <a href="login.html" class="btn btn-outline btn-sm">Already have an account? Log In</a>
+    </div>
+  </nav>
+
+  <!-- Signup Form Container -->
+  <main class="container container-sm" style="display: flex; flex-direction: column; justify-content: center; min-height: 80vh;">
+    
+    <div class="card">
+      <div style="text-align: center; margin-bottom: 2rem;">
+        <h2 style="font-size: 1.75rem; margin-bottom: 0.5rem; color: #fff;">Create Secure Account</h2>
+        <p style="color: var(--text-secondary); font-size: 0.9rem;">
+          Join SecureAuth. Your credentials are fully protected with bcrypt 12-round hashing.
+        </p>
+      </div>
+
+      <!-- Dynamic Alert Container -->
+      <div id="signup-alert" class="alert alert-danger" style="display: none;"></div>
+
+      <form id="signup-form" novalidate>
+        <!-- Full Name -->
+        <div class="form-group">
+          <label for="signup-name" class="form-label">Full Name</label>
+          <div class="input-wrapper">
+            <span class="input-icon">👤</span>
+            <input 
+              type="text" 
+              id="signup-name" 
+              class="form-control" 
+              placeholder="e.g. Alex Chen" 
+              required 
+              minlength="2" 
+              maxlength="50"
+              autocomplete="name"
+            >
+          </div>
+        </div>
+
+        <!-- Email Address -->
+        <div class="form-group">
+          <label for="signup-email" class="form-label">Email Address</label>
+          <div class="input-wrapper">
+            <span class="input-icon">✉️</span>
+            <input 
+              type="email" 
+              id="signup-email" 
+              class="form-control" 
+              placeholder="you@example.com" 
+              required
+              autocomplete="email"
+            >
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+          <label for="signup-password" class="form-label">Password</label>
+          <div class="input-wrapper">
+            <span class="input-icon">🔒</span>
+            <input 
+              type="password" 
+              id="signup-password" 
+              class="form-control" 
+              placeholder="••••••••••••" 
+              required
+              autocomplete="new-password"
+            >
+            <button type="button" class="password-toggle" data-target="signup-password" aria-label="Toggle password visibility">
+              👁️
+            </button>
+          </div>
+
+          <!-- Password Strength Indicator -->
+          <div class="strength-meter">
+            <div class="strength-bars" id="password-bars">
+              <div class="strength-bar"></div>
+              <div class="strength-bar"></div>
+              <div class="strength-bar"></div>
+              <div class="strength-bar"></div>
+            </div>
+            <div class="strength-text">
+              <span>Security Strength:</span>
+              <span id="password-strength-label" style="font-family: var(--font-mono);">Too Weak</span>
+            </div>
+          </div>
+
+          <!-- Security Requirements Checklist -->
+          <div class="strength-reqs" id="password-reqs">
+            <div class="req-item" id="req-len"><span class="req-icon">○</span> Min 8 Characters</div>
+            <div class="req-item" id="req-upper"><span class="req-icon">○</span> Uppercase Letter</div>
+            <div class="req-item" id="req-num"><span class="req-icon">○</span> At least 1 Number</div>
+            <div class="req-item" id="req-spec"><span class="req-icon">○</span> Special Character</div>
+          </div>
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="form-group">
+          <label for="signup-confirm" class="form-label">Confirm Password</label>
+          <div class="input-wrapper">
+            <span class="input-icon">🔁</span>
+            <input 
+              type="password" 
+              id="signup-confirm" 
+              class="form-control" 
+              placeholder="••••••••••••" 
+              required
+              autocomplete="new-password"
+            >
+            <button type="button" class="password-toggle" data-target="signup-confirm" aria-label="Toggle confirm password visibility">
+              👁️
+            </button>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" id="signup-submit-btn" class="btn btn-primary btn-block" style="margin-top: 1.75rem;">
+          Create Free Account
+        </button>
+      </form>
+
+      <div style="margin-top: 1.5rem; text-align: center; font-size: 0.85rem; color: var(--text-muted);">
+        Already have an account? <a href="login.html" style="font-weight: 600;">Sign in here</a>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <p>SecureAuth • All passwords protected with bcrypt salted hashing</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

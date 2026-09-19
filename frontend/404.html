@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Security Alert – SecureAuth</title>
+  <meta name="description" content="SecureAuth Access Control and 404 Route Protection.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <a href="index.html" class="brand">
+      <div class="brand-icon">🛡️</div>
+      Secure<span>Auth</span>
+    </a>
+    <div class="nav-auth" id="nav-auth-container">
+      <!-- Dynamic via script.js -->
+    </div>
+  </nav>
+
+  <!-- Content Container -->
+  <main class="container container-sm" style="display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 75vh; text-align: center;">
+    
+    <div class="card" style="padding: 3rem 2rem; width: 100%; border-color: rgba(248, 81, 73, 0.4);">
+      <div style="font-size: 3.5rem; margin-bottom: 1rem;">🚫</div>
+      
+      <div id="error-code" style="font-size: 4rem; font-weight: 800; font-family: var(--font-mono); color: var(--danger); line-height: 1; margin-bottom: 1rem;">
+        404
+      </div>
+
+      <h1 id="error-title" style="font-size: 1.5rem; margin-bottom: 1rem; color: #fff;">
+        Page Not Located
+      </h1>
+
+      <p id="error-description" style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; margin-bottom: 2rem;">
+        The requested URL was not found on this SecureAuth server or you lack the required security clearance to view it.
+      </p>
+
+      <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+        <a href="index.html" class="btn btn-outline">
+          <span>🏠</span> Home Page
+        </a>
+        <a href="dashboard.html" class="btn btn-primary">
+          <span>🛡️</span> My Dashboard
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <p>SecureAuth • Security Exception Handler</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

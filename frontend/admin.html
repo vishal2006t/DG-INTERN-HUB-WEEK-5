@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard – SecureAuth</title>
+  <meta name="description" content="Central administrative control panel for user management, role authorization, and security telemetry.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <a href="index.html" class="brand">
+      <div class="brand-icon">🛡️</div>
+      Secure<span>Auth</span>
+      <span class="badge badge-admin" style="font-size: 0.65rem; margin-left: 0.25rem;">ADMIN CONSOLE</span>
+    </a>
+    <div class="nav-auth" id="nav-auth-container">
+      <!-- Dynamic via script.js -->
+    </div>
+  </nav>
+
+  <!-- Main Admin Workspace -->
+  <main class="container">
+    
+    <!-- Header Section -->
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem;">
+      <div>
+        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.25rem;">
+          <h1 style="font-size: 2.2rem; font-weight: 800; color: #fff;">User Management & Analytics</h1>
+        </div>
+        <p style="color: var(--text-secondary); font-size: 0.95rem;">
+          Real-time oversight of system identities, privilege assignment, and directory operations.
+        </p>
+      </div>
+
+      <div style="display: flex; gap: 0.75rem;">
+        <a href="dashboard.html" class="btn btn-outline btn-sm">
+          <span>👤</span> Switch to User View
+        </a>
+        <button id="admin-logout-btn" class="btn btn-danger btn-sm">
+          <span>🚪</span> Sign Out
+        </button>
+      </div>
+    </div>
+
+    <!-- Analytics Cards Grid -->
+    <section class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">👥</div>
+        <div class="stat-info">
+          <h4>Total Registrations</h4>
+          <div class="stat-value" id="stat-total-users">-</div>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon" style="color: var(--danger); border-color: rgba(248,81,73,0.3); background: rgba(248,81,73,0.1);">👑</div>
+        <div class="stat-info">
+          <h4>Admin Accounts</h4>
+          <div class="stat-value" id="stat-admin-count">-</div>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon" style="color: var(--accent); border-color: rgba(56,239,125,0.3); background: rgba(56,239,125,0.1);">👤</div>
+        <div class="stat-info">
+          <h4>Standard Users</h4>
+          <div class="stat-value" id="stat-standard-users">-</div>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon" style="color: var(--warning); border-color: rgba(251,191,36,0.3); background: rgba(251,191,36,0.1);">⚡</div>
+        <div class="stat-info">
+          <h4>New Users (24h)</h4>
+          <div class="stat-value" id="stat-recent-24h">-</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- User Directory Table Card -->
+    <section class="card" style="padding: 1.5rem; margin-top: 1rem;">
+      
+      <!-- Toolbar: Search Bar and Role Filter Tabs -->
+      <div class="toolbar">
+        <div class="search-box">
+          <div class="input-wrapper">
+            <span class="input-icon">🔍</span>
+            <input 
+              type="text" 
+              id="admin-search-input" 
+              class="form-control" 
+              placeholder="Search directory by name or email..."
+            >
+          </div>
+        </div>
+
+        <div class="filter-tabs">
+          <button class="filter-tab active" data-role="all">All Accounts</button>
+          <button class="filter-tab" data-role="user">Users Only</button>
+          <button class="filter-tab" data-role="admin">Admins Only</button>
+        </div>
+      </div>
+
+      <!-- User Directory Table -->
+      <div class="table-responsive">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>User & ID</th>
+              <th>Email Address</th>
+              <th>Role</th>
+              <th>Created Date</th>
+              <th>Last Active</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="admin-users-tbody">
+            <!-- Populated dynamically via script.js -->
+            <tr>
+              <td colspan="6" style="text-align: center; padding: 2rem; color: var(--text-muted);">
+                Loading user directory...
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Delete Confirmation Modal -->
+  <div id="delete-modal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-header">
+        <span style="font-size: 1.5rem; color: var(--danger);">⚠️</span>
+        <h3>Confirm Account Deletion</h3>
+      </div>
+      <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.5;">
+        Are you sure you want to permanently delete the following account? This operation is irreversible and will remove all authentication records and activity history.
+      </p>
+      <div style="margin: 1.25rem 0; padding: 0.85rem; background: rgba(248, 81, 73, 0.08); border: 1px solid rgba(248, 81, 73, 0.25); border-radius: var(--radius-sm);">
+        <strong id="delete-user-details" style="color: #fff; font-family: var(--font-mono); font-size: 0.9rem;">
+          User Details
+        </strong>
+      </div>
+      <div class="modal-actions">
+        <button type="button" id="cancel-delete-btn" class="btn btn-outline btn-sm">Cancel</button>
+        <button type="button" id="confirm-delete-btn" class="btn btn-danger btn-sm">Delete User Account</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>SecureAuth Admin Portal • DG Interns Hub Role-Based Access Control Implementation</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

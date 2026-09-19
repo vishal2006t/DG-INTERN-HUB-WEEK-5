@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In – SecureAuth</title>
+  <meta name="description" content="Sign into your SecureAuth account with JWT authentication and brute-force protection.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <a href="index.html" class="brand">
+      <div class="brand-icon">🛡️</div>
+      Secure<span>Auth</span>
+    </a>
+    <div class="nav-auth">
+      <a href="signup.html" class="btn btn-outline btn-sm">Create Account</a>
+    </div>
+  </nav>
+
+  <!-- Login Form Container -->
+  <main class="container container-sm" style="display: flex; flex-direction: column; justify-content: center; min-height: 80vh;">
+    
+    <div class="card">
+      <div style="text-align: center; margin-bottom: 2rem;">
+        <h2 style="font-size: 1.75rem; margin-bottom: 0.5rem; color: #fff;">Identity Verification</h2>
+        <p style="color: var(--text-secondary); font-size: 0.9rem;">
+          Enter your registered email and credentials to enter the system.
+        </p>
+      </div>
+
+      <!-- Dynamic Alert Container -->
+      <div id="login-alert" class="alert alert-danger" style="display: none;"></div>
+
+      <form id="login-form" novalidate>
+        <!-- Email Address -->
+        <div class="form-group">
+          <label for="login-email" class="form-label">Email Address</label>
+          <div class="input-wrapper">
+            <span class="input-icon">✉️</span>
+            <input 
+              type="email" 
+              id="login-email" 
+              class="form-control" 
+              placeholder="name@secureauth.io" 
+              required
+              autocomplete="email"
+            >
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+            <label for="login-password" class="form-label" style="margin-bottom: 0;">Password</label>
+            <span style="font-size: 0.75rem; color: var(--text-muted);">Rate-limit protected</span>
+          </div>
+          <div class="input-wrapper">
+            <span class="input-icon">🔒</span>
+            <input 
+              type="password" 
+              id="login-password" 
+              class="form-control" 
+              placeholder="••••••••••••" 
+              required
+              autocomplete="current-password"
+            >
+            <button type="button" class="password-toggle" data-target="login-password" aria-label="Toggle password visibility">
+              👁️
+            </button>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" id="login-submit-btn" class="btn btn-primary btn-block" style="margin-top: 1.5rem;">
+          Authenticate & Sign In
+        </button>
+      </form>
+
+      <!-- Demo Accounts Box for Evaluator Convenience -->
+      <div class="demo-box">
+        <div class="demo-title">
+          <span>⚡</span> Quick Test Demo Credentials
+        </div>
+        <p style="color: var(--text-muted); font-size: 0.8rem; margin-bottom: 0.5rem;">
+          Click a button below to auto-fill credentials for instant testing:
+        </p>
+        <div class="demo-actions">
+          <button type="button" id="demo-admin-btn" class="btn btn-outline btn-sm" style="flex: 1; font-size: 0.75rem;">
+            🛡️ Admin Account
+          </button>
+          <button type="button" id="demo-user-btn" class="btn btn-outline btn-sm" style="flex: 1; font-size: 0.75rem;">
+            👤 Standard User
+          </button>
+        </div>
+      </div>
+
+      <div style="margin-top: 1.5rem; text-align: center; font-size: 0.85rem; color: var(--text-muted);">
+        Don't have an account yet? <a href="signup.html" style="font-weight: 600;">Sign up here</a>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <p>SecureAuth • Protected with Express Rate Limiter & Helmet Headers</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

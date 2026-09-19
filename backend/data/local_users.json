@@ -1,0 +1,110 @@
+[
+  {
+    "_id": "23318a173fd24947cd73bb95",
+    "name": "System Administrator",
+    "email": "admin@secureauth.io",
+    "password": "$2a$12$LTd/gVwarkgQMUMHFUjg2.6be5ByYysIhzHOxgRghlNVU651VbflC",
+    "role": "admin",
+    "avatar": "shield-cyan",
+    "createdAt": "2026-09-18T16:51:02.560Z",
+    "lastLogin": "2026-09-18T16:53:52.797Z",
+    "activityLog": [
+      {
+        "action": "User Logged In",
+        "ip": "::1",
+        "userAgent": "node",
+        "timestamp": "2026-09-18T16:53:52.798Z"
+      },
+      {
+        "action": "User Logged In",
+        "ip": "::1",
+        "userAgent": "node",
+        "timestamp": "2026-09-18T16:52:53.483Z"
+      },
+      {
+        "action": "Admin Account Initialized (Seed)",
+        "ip": "127.0.0.1",
+        "userAgent": "System Internal",
+        "timestamp": "2026-09-18T16:51:02.788Z"
+      }
+    ]
+  },
+  {
+    "_id": "90feb42ad97e906c005b83d8",
+    "name": "Alex Chen",
+    "email": "alex.chen@secureauth.io",
+    "password": "$2a$12$7DqbTGZ5WATrJrd8kvOMAOn8tPIIcM6YYxzkCcOc.z2PeMK5hlp3m",
+    "role": "user",
+    "avatar": "shield-emerald",
+    "createdAt": "2026-09-18T16:51:02.789Z",
+    "lastLogin": "2026-09-18T16:52:53.243Z",
+    "activityLog": [
+      {
+        "action": "User Logged In",
+        "ip": "::1",
+        "userAgent": "node",
+        "timestamp": "2026-09-18T16:52:53.254Z"
+      },
+      {
+        "action": "Demo User Initialized (Seed)",
+        "ip": "127.0.0.1",
+        "userAgent": "System Internal",
+        "timestamp": "2026-09-18T16:51:03.012Z"
+      }
+    ]
+  },
+  {
+    "_id": "0142749723192e20a01b9dfa",
+    "name": "Sarah Connor",
+    "email": "s.connor@cyberdyne.org",
+    "password": "$2a$12$syf.JsVJFnK35n0MwD3pbeVD1KQ/bWj0FZqQiKUPJaH04uxNTaMv2",
+    "role": "user",
+    "avatar": "shield-indigo",
+    "createdAt": "2026-09-18T16:51:03.014Z",
+    "lastLogin": null,
+    "activityLog": [
+      {
+        "action": "Sample User Created",
+        "ip": "127.0.0.1",
+        "userAgent": "System Internal",
+        "timestamp": "2026-09-18T16:51:03.233Z"
+      }
+    ]
+  },
+  {
+    "_id": "b9b6a45a9dd103c5fd97ef0d",
+    "name": "Marcus Wright",
+    "email": "m.wright@resistance.net",
+    "password": "$2a$12$zyg6ArqQirkUPV6/LOWDce7FQYzbCt5/4LZJdyhOXKaRVEv7ww6rS",
+    "role": "user",
+    "avatar": "shield-amber",
+    "createdAt": "2026-09-18T16:51:03.233Z",
+    "lastLogin": null,
+    "activityLog": [
+      {
+        "action": "Sample User Created",
+        "ip": "127.0.0.1",
+        "userAgent": "System Internal",
+        "timestamp": "2026-09-18T16:51:03.531Z"
+      }
+    ]
+  },
+  {
+    "_id": "f8f4feec182b9f4274ef52e0",
+    "name": "Elena Rostova",
+    "email": "elena.rostova@infosec.io",
+    "password": "$2a$12$T3DDjqeQLzAmYBpFgw5QUutISX9f.2Ll8oOu6Uq4dNssRYES6ouUm",
+    "role": "user",
+    "avatar": "shield-rose",
+    "createdAt": "2026-09-18T16:51:03.532Z",
+    "lastLogin": null,
+    "activityLog": [
+      {
+        "action": "Sample User Created",
+        "ip": "127.0.0.1",
+        "userAgent": "System Internal",
+        "timestamp": "2026-09-18T16:51:03.752Z"
+      }
+    ]
+  }
+]

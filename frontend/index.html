@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SecureAuth – Full-Stack Authentication & Admin Dashboard</title>
+  <meta name="description" content="A modern, high-security full-stack authentication platform with RBAC, JWT, bcrypt hashing, and admin monitoring.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <a href="index.html" class="brand">
+      <div class="brand-icon">🛡️</div>
+      Secure<span>Auth</span>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Overview</a></li>
+      <li><a href="#features">Security Features</a></li>
+      <li><a href="#architecture">Architecture</a></li>
+    </ul>
+
+    <div class="nav-auth" id="nav-auth-container">
+      <a href="login.html" class="btn btn-outline btn-sm">Log In</a>
+      <a href="signup.html" class="btn btn-primary btn-sm">Create Account</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <main class="container">
+    <section class="hero">
+      <div class="hero-pill">
+        <span>⚡</span> DG Interns Hub • Week 5 Full-Stack Submission
+      </div>
+      <h1>Enterprise Grade<br><span style="background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Authentication & Admin Engine</span></h1>
+      <p>
+        Built with rock-solid security principles: bcrypt password hashing, stateless 256-bit JWT authentication, role-based access control, brute-force rate limiting, and MongoDB integration.
+      </p>
+
+      <div class="hero-actions">
+        <a href="signup.html" id="hero-cta-btn" class="btn btn-primary">
+          <span>Get Started Free</span> →
+        </a>
+        <a href="login.html" class="btn btn-outline">
+          <span>Access Portal</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Interactive Security Metrics Banner -->
+    <section class="stats-grid" style="margin-top: 1rem;">
+      <div class="stat-card">
+        <div class="stat-icon">🔐</div>
+        <div class="stat-info">
+          <h4>Encryption Standard</h4>
+          <div class="stat-value" style="font-size: 1.25rem;">bcrypt 12-Rounds</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🛡️</div>
+        <div class="stat-info">
+          <h4>Token Authorization</h4>
+          <div class="stat-value" style="font-size: 1.25rem;">HMAC SHA-256 JWT</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">⚡</div>
+        <div class="stat-info">
+          <h4>Access Protocol</h4>
+          <div class="stat-value" style="font-size: 1.25rem;">Strict RBAC</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🌐</div>
+        <div class="stat-info">
+          <h4>Database Layer</h4>
+          <div class="stat-value" style="font-size: 1.25rem;">MongoDB Atlas</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Security Features Section -->
+    <section id="features" style="padding: 4rem 0 2rem;">
+      <div style="text-align: center; max-width: 600px; margin: 0 auto;">
+        <h2 style="font-size: 2rem; margin-bottom: 0.5rem;">Core Security Implementations</h2>
+        <p style="color: var(--text-secondary); font-size: 0.95rem;">
+          Designed to resist common web vulnerabilities and protect identity integrity at every layer.
+        </p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🔒</div>
+          <h3>bcrypt Password Hashing</h3>
+          <p>Passwords are never stored in plain text. Salted with 12 algorithmic rounds to prevent rainbow table attacks and ensure irreversible storage.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🎫</div>
+          <h3>Stateless JWT Sessions</h3>
+          <p>Cryptographically signed JSON Web Tokens ensure tamper-proof sessions. Expired tokens are invalidated and passwords are never exposed in payloads.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">👥</div>
+          <h3>Role-Based Access Control</h3>
+          <p>Segregation between standard user profiles and administrative operations. Normal accounts cannot escalate privileges or reach admin endpoints.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🚦</div>
+          <h3>Brute-Force Rate Limiting</h3>
+          <p>IP-level rate limiters built into the authentication pipelines prevent credential stuffing and automated dictionary attacks.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🛡️</div>
+          <h3>Helmet Security Headers</h3>
+          <p>Sets essential HTTP response headers (Content-Security-Policy, HSTS, X-Content-Type-Options) to shield against sniffing and clickjacking.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🧹</div>
+          <h3>Input Validation & XSS Defense</h3>
+          <p>All inputs are sanitized, normalized, and validated on both client and server before interacting with application logic.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Architecture Section -->
+    <section id="architecture" style="padding: 3rem 0;">
+      <div class="card" style="background: rgba(15, 23, 42, 0.6); border: 1px dashed var(--border-highlight);">
+        <h3 style="font-size: 1.3rem; margin-bottom: 1rem; color: #fff;">Technology Stack & Separation</h3>
+        <p style="color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 0.95rem;">
+          Clean separation between client presentation and server-side security logic. Zero front-end framework bloat.
+        </p>
+        <div style="display: flex; flex-wrap: wrap; gap: 0.75rem;">
+          <span class="badge badge-user">HTML5 Semantic Structure</span>
+          <span class="badge badge-user">Modern Pure CSS3 Variables</span>
+          <span class="badge badge-user">Vanilla JavaScript (ES6+)</span>
+          <span class="badge badge-admin">Node.js Engine</span>
+          <span class="badge badge-admin">Express REST API</span>
+          <span class="badge badge-active">MongoDB Atlas / Mongoose</span>
+          <span class="badge badge-admin">bcryptjs</span>
+          <span class="badge badge-admin">jsonwebtoken</span>
+          <span class="badge badge-admin">express-validator</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container" style="padding: 0;">
+      <p>SecureAuth &copy; 2026 • DG Interns Hub Week 5 Full-Stack Web Application Task</p>
+      <p style="margin-top: 0.35rem; font-size: 0.8rem; color: var(--text-muted);">
+        Crafted with modern HTML5, CSS3, Vanilla JS, Node.js, Express & MongoDB.
+      </p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

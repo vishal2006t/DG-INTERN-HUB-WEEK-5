@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile – SecureAuth</title>
+  <meta name="description" content="View and configure your account identity, security preferences, and avatar badge.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <a href="index.html" class="brand">
+      <div class="brand-icon">🛡️</div>
+      Secure<span>Auth</span>
+    </a>
+    <div class="nav-auth" id="nav-auth-container">
+      <!-- Dynamic via script.js -->
+    </div>
+  </nav>
+
+  <!-- Profile Settings Container -->
+  <main class="container container-md">
+    
+    <!-- Profile Page Header -->
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <h1 style="font-size: 2rem; font-weight: 800; color: #fff;">Identity & Security Profile</h1>
+        <p style="color: var(--text-secondary); font-size: 0.95rem;">
+          Manage your personal account credentials and security authentication layer.
+        </p>
+      </div>
+
+      <div style="display: flex; gap: 0.75rem;">
+        <a href="dashboard.html" class="btn btn-outline btn-sm">← Back to Dashboard</a>
+        <button id="profile-logout-btn" class="btn btn-danger btn-sm">Sign Out</button>
+      </div>
+    </div>
+
+    <!-- User Profile Overview Card -->
+    <div class="card" style="margin-bottom: 2rem;">
+      <div style="display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;">
+        <div id="profile-avatar-preview" class="user-avatar-badge shield-cyan" style="width: 72px; height: 72px; font-size: 1.8rem; box-shadow: var(--shadow-glow);">
+          U
+        </div>
+
+        <div style="flex: 1;">
+          <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.25rem;">
+            <h2 id="profile-name-display" class="user-name-display" style="font-size: 1.5rem; color: #fff;">User Profile</h2>
+            <span id="profile-role-badge" class="badge badge-user">user</span>
+            <span class="badge badge-active badge-pulse">Active Session</span>
+          </div>
+          <div id="profile-email-display" class="user-email-display" style="font-family: var(--font-mono); color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 0.5rem;">
+            email@secureauth.io
+          </div>
+          <div style="display: flex; gap: 1.5rem; font-size: 0.8rem; color: var(--text-muted); font-family: var(--font-mono);">
+            <span>Joined: <strong id="profile-created-date" style="color: var(--text-secondary);">-</strong></span>
+            <span>Last Login: <strong id="profile-last-login" style="color: var(--text-secondary);">-</strong></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit Profile Details Form -->
+    <div class="card" style="margin-bottom: 2rem;">
+      <h3 style="font-size: 1.2rem; color: #fff; margin-bottom: 0.5rem;">General Information</h3>
+      <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 1.5rem;">
+        Update your display name and customize your cybersecurity avatar theme.
+      </p>
+
+      <form id="profile-details-form">
+        <div class="form-group">
+          <label for="profile-name-input" class="form-label">Full Name</label>
+          <div class="input-wrapper">
+            <span class="input-icon">👤</span>
+            <input 
+              type="text" 
+              id="profile-name-input" 
+              class="form-control" 
+              placeholder="Your full name"
+              required 
+              minlength="2" 
+              maxlength="50"
+            >
+          </div>
+        </div>
+
+        <!-- Avatar Theme Selection -->
+        <div class="form-group">
+          <label class="form-label">Security Avatar Accent</label>
+          <div style="display: flex; gap: 1rem; align-items: center; margin-top: 0.5rem;">
+            <label style="cursor: pointer; display: flex; align-items: center; gap: 0.4rem;">
+              <input type="radio" name="avatar-choice" value="shield-cyan" checked>
+              <div class="user-avatar-badge shield-cyan" style="width: 32px; height: 32px; font-size: 0.75rem;">Cyan</div>
+            </label>
+            <label style="cursor: pointer; display: flex; align-items: center; gap: 0.4rem;">
+              <input type="radio" name="avatar-choice" value="shield-emerald">
+              <div class="user-avatar-badge shield-emerald" style="width: 32px; height: 32px; font-size: 0.75rem;">Green</div>
+            </label>
+            <label style="cursor: pointer; display: flex; align-items: center; gap: 0.4rem;">
+              <input type="radio" name="avatar-choice" value="shield-indigo">
+              <div class="user-avatar-badge shield-indigo" style="width: 32px; height: 32px; font-size: 0.75rem;">Indigo</div>
+            </label>
+            <label style="cursor: pointer; display: flex; align-items: center; gap: 0.4rem;">
+              <input type="radio" name="avatar-choice" value="shield-amber">
+              <div class="user-avatar-badge shield-amber" style="width: 32px; height: 32px; font-size: 0.75rem;">Amber</div>
+            </label>
+            <label style="cursor: pointer; display: flex; align-items: center; gap: 0.4rem;">
+              <input type="radio" name="avatar-choice" value="shield-rose">
+              <div class="user-avatar-badge shield-rose" style="width: 32px; height: 32px; font-size: 0.75rem;">Rose</div>
+            </label>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-sm" style="margin-top: 0.5rem;">
+          Save Profile Details
+        </button>
+      </form>
+    </div>
+
+    <!-- Change Password Form -->
+    <div class="card" id="security">
+      <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+        <span style="font-size: 1.25rem;">🔐</span>
+        <h3 style="font-size: 1.2rem; color: #fff;">Change Authentication Password</h3>
+      </div>
+      <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 1.5rem;">
+        Ensure your new password contains uppercase, lowercase, numbers, and symbols.
+      </p>
+
+      <form id="change-password-form">
+        <div class="form-group">
+          <label for="current-password" class="form-label">Current Password</label>
+          <div class="input-wrapper">
+            <span class="input-icon">🔒</span>
+            <input 
+              type="password" 
+              id="current-password" 
+              class="form-control" 
+              placeholder="••••••••••••" 
+              required
+            >
+            <button type="button" class="password-toggle" data-target="current-password" aria-label="Toggle visibility">
+              👁️
+            </button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="new-password" class="form-label">New Password</label>
+          <div class="input-wrapper">
+            <span class="input-icon">🔑</span>
+            <input 
+              type="password" 
+              id="new-password" 
+              class="form-control" 
+              placeholder="••••••••••••" 
+              required
+            >
+            <button type="button" class="password-toggle" data-target="new-password" aria-label="Toggle visibility">
+              👁️
+            </button>
+          </div>
+          <!-- Strength Bars -->
+          <div class="strength-meter">
+            <div class="strength-bars" id="change-password-bars">
+              <div class="strength-bar"></div>
+              <div class="strength-bar"></div>
+              <div class="strength-bar"></div>
+              <div class="strength-bar"></div>
+            </div>
+            <div class="strength-text">
+              <span>Password Quality:</span>
+              <span id="change-password-label" style="font-family: var(--font-mono);">Too Weak</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="confirm-new-password" class="form-label">Confirm New Password</label>
+          <div class="input-wrapper">
+            <span class="input-icon">🔁</span>
+            <input 
+              type="password" 
+              id="confirm-new-password" 
+              class="form-control" 
+              placeholder="••••••••••••" 
+              required
+            >
+            <button type="button" class="password-toggle" data-target="confirm-new-password" aria-label="Toggle visibility">
+              👁️
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-outline btn-sm" style="margin-top: 0.5rem; border-color: var(--primary);">
+          Update Password
+        </button>
+      </form>
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <p>SecureAuth Profile • End-to-End Account Integrity</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

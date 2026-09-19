@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Dashboard – SecureAuth</title>
+  <meta name="description" content="Personal user dashboard with active session details and security activity logs.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <a href="index.html" class="brand">
+      <div class="brand-icon">🛡️</div>
+      Secure<span>Auth</span>
+    </a>
+    <div class="nav-auth" id="nav-auth-container">
+      <!-- Injected by script.js -->
+    </div>
+  </nav>
+
+  <!-- Dashboard Container -->
+  <main class="container">
+    
+    <!-- Admin Switcher Banner (Visible only if current user is an Admin) -->
+    <div id="admin-quicklink-banner" class="alert alert-info" style="display: none; align-items: center; justify-content: space-between; margin-bottom: 2rem;">
+      <div style="display: flex; align-items: center; gap: 0.75rem;">
+        <span style="font-size: 1.5rem;">👑</span>
+        <div>
+          <strong style="color: #fff;">Administrator Privileges Active:</strong>
+          <span style="color: var(--text-secondary); margin-left: 0.5rem;">You have administrative access to the user directory and system analytics.</span>
+        </div>
+      </div>
+      <a href="admin.html" class="btn btn-primary btn-sm">Launch Admin Console →</a>
+    </div>
+
+    <!-- Welcome Header -->
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1rem; margin-bottom: 2.5rem;">
+      <div>
+        <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.35rem;">
+          <h1 style="font-size: 2.2rem; font-weight: 800; color: #fff;">
+            Welcome back, <span class="user-name-display" style="background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">User</span>
+          </h1>
+          <span id="user-role-badge" class="badge badge-user badge-pulse">user</span>
+        </div>
+        <p style="color: var(--text-secondary); font-size: 0.95rem;">
+          Your authenticated identity session is active and secured with 256-bit JWT verification.
+        </p>
+      </div>
+
+      <div style="display: flex; gap: 0.75rem;">
+        <a href="profile.html" class="btn btn-outline btn-sm">
+          <span>⚙️</span> Edit Profile
+        </a>
+        <button id="dash-logout-btn" class="btn btn-danger btn-sm">
+          <span>🚪</span> Sign Out
+        </button>
+      </div>
+    </div>
+
+    <!-- Account Details Cards Grid -->
+    <section class="stats-grid">
+      <!-- Full Name -->
+      <div class="stat-card">
+        <div class="stat-icon">👤</div>
+        <div class="stat-info">
+          <h4>Account Holder</h4>
+          <div class="stat-value user-name-display" style="font-size: 1.15rem; font-family: var(--font-sans);">Loading...</div>
+        </div>
+      </div>
+
+      <!-- Email Address -->
+      <div class="stat-card">
+        <div class="stat-icon">✉️</div>
+        <div class="stat-info">
+          <h4>Verified Email</h4>
+          <div class="stat-value user-email-display" style="font-size: 1.05rem; font-family: var(--font-mono); word-break: break-all;">Loading...</div>
+        </div>
+      </div>
+
+      <!-- Member Since -->
+      <div class="stat-card">
+        <div class="stat-icon">📅</div>
+        <div class="stat-info">
+          <h4>Account Created</h4>
+          <div class="stat-value" id="user-created-display" style="font-size: 0.95rem; font-family: var(--font-mono);">Loading...</div>
+        </div>
+      </div>
+
+      <!-- Last Login -->
+      <div class="stat-card">
+        <div class="stat-icon">🕒</div>
+        <div class="stat-info">
+          <h4>Last Active Session</h4>
+          <div class="stat-value" id="user-lastlogin-display" style="font-size: 0.95rem; font-family: var(--font-mono);">Loading...</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Content Grid: Security Health & Activity Timeline -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 2rem; margin-top: 1rem;">
+      
+      <!-- Security Status Card -->
+      <div class="card">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+          <h3 style="font-size: 1.25rem; color: #fff;">Identity & Security Health</h3>
+          <span class="badge badge-active badge-pulse">Secured</span>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 1rem;">
+          <div style="display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1rem; background: rgba(255,255,255,0.02); border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+            <div>
+              <div style="font-weight: 600; font-size: 0.9rem;">Password Encryption</div>
+              <div style="font-size: 0.75rem; color: var(--text-muted);">bcrypt algorithm (Cost 12)</div>
+            </div>
+            <span class="badge badge-active">Active</span>
+          </div>
+
+          <div style="display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1rem; background: rgba(255,255,255,0.02); border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+            <div>
+              <div style="font-weight: 600; font-size: 0.9rem;">JWT Signature Check</div>
+              <div style="font-size: 0.75rem; color: var(--text-muted);">Server-side verified token</div>
+            </div>
+            <span class="badge badge-active">Verified</span>
+          </div>
+
+          <div style="display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1rem; background: rgba(255,255,255,0.02); border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+            <div>
+              <div style="font-weight: 600; font-size: 0.9rem;">Role Authorization</div>
+              <div style="font-size: 0.75rem; color: var(--text-muted);">Self-profile access restricted</div>
+            </div>
+            <span class="badge badge-user">Enforced</span>
+          </div>
+        </div>
+
+        <div style="margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center;">
+          <span style="font-size: 0.85rem; color: var(--text-muted);">Need to change credentials?</span>
+          <a href="profile.html#security" class="btn btn-outline btn-sm">Manage Security</a>
+        </div>
+      </div>
+
+      <!-- Activity Timeline -->
+      <div class="card">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+          <h3 style="font-size: 1.25rem; color: #fff;">Recent Security Activity</h3>
+          <span style="font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-mono);">Live Audit Log</span>
+        </div>
+
+        <ul class="timeline" id="activity-timeline">
+          <!-- Populated dynamically via script.js -->
+          <li style="color: var(--text-muted); font-size: 0.9rem;">Fetching activity telemetry...</li>
+        </ul>
+      </div>
+
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <p>SecureAuth Dashboard • Normal User Workspace</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
