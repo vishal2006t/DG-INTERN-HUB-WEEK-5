@@ -117,21 +117,23 @@ app.get('*', (req, res) => {
   res.status(404).sendFile(path.join(frontendPath, '404.html'));
 });
 
-// Start Server
-const server = app.listen(PORT, () => {
-  console.log(`\n======================================================`);
-  console.log(`🔒 SecureAuth Server running on: http://localhost:${PORT}`);
-  console.log(`📡 Environment: ${process.env.NODE_ENV || 'development'}`);
-  console.log(`📁 Frontend served from: ${frontendPath}`);
-  console.log(`======================================================\n`);
-});
-
-// Handle graceful shutdown
-process.on('SIGTERM', () => {
-  console.log('SIGTERM signal received: closing HTTP server');
-  server.close(() => {
-    console.log('HTTP server closed');
+// Start Server// Start Server only when running locally/Docker
+if (require.main === module) {
+  const server = app.listen(PORT, () => {
+    console.log(`\n======================================================`);
+    console.log(`🔒 SecureAuth Server running on: http://localhost:${PORT}`);
+    console.log(`📋 Environment: ${process.env.NODE_ENV || 'development'}`);
+    console.log(`📁 Frontend served from: ${frontendPath}`);
+    console.log(`======================================================\n`);
   });
-});
+
+  // Handle graceful shutdown
+  process.on('SIGTERM', () => {
+    console.log('SIGTERM signal received: closing HTTP server');
+    server.close(() => {
+      console.log('HTTP server closed');
+    });
+  });
+}
 
 module.exports = app;
