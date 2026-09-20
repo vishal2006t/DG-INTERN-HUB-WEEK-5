@@ -15,29 +15,41 @@ const adminRoutes = require('./routes/adminRoutes');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Connect to MongoDB
-connectDB().then(async () => {
-  // Ensure default admin exists if database is brand new
-  try {
-    const adminCount = await User.countDocuments({ role: 'admin' });
-    if (adminCount === 0) {
-      console.log('⚡ No admin detected. Auto-provisioning initial administrator account...');
-      const defaultAdmin = new User({
-        name: process.env.ADMIN_NAME || 'System Administrator',
-        email: (process.env.ADMIN_EMAIL || 'admin@secureauth.io').toLowerCase(),
-        password: process.env.ADMIN_PASSWORD || 'Admin@Secure2026!',
-        role: 'admin',
-        avatar: 'shield-cyan',
-        lastLogin: new Date(),
-      });
-      await defaultAdmin.save();
-      await defaultAdmin.logActivity('System Auto-Provisioned Admin');
-      console.log(`🛡️  Initial Admin created: ${defaultAdmin.email} / ${process.env.ADMIN_PASSWORD || 'Admin@Secure2026!'}`);
+// Admin auto-provisioning helper (idempotent with promise caching)
+let adminInitPromise = null;
+let adminInitialized = false;
+
+const ensureDefaultAdmin = async () => {
+  if (adminInitialized) return;
+  if (adminInitPromise) return adminInitPromise;
+
+  adminInitPromise = (async () => {
+    try {
+      const adminCount = await User.countDocuments({ role: 'admin' });
+      if (adminCount === 0) {
+        console.log('⚡ No admin detected. Auto-provisioning initial administrator account...');
+        const defaultAdmin = new User({
+          name: process.env.ADMIN_NAME || 'System Administrator',
+          email: (process.env.ADMIN_EMAIL || 'admin@secureauth.io').toLowerCase(),
+          password: process.env.ADMIN_PASSWORD || 'Admin@Secure2026!',
+          role: 'admin',
+          avatar: 'shield-cyan',
+          lastLogin: new Date(),
+        });
+        await defaultAdmin.save();
+        await defaultAdmin.logActivity('System Auto-Provisioned Admin');
+        console.log(`🛡️  Initial Admin created: ${defaultAdmin.email} / ${process.env.ADMIN_PASSWORD || 'Admin@Secure2026!'}`);
+      }
+      adminInitialized = true;
+    } catch (initErr) {
+      console.warn('Admin auto-init check warning:', initErr.message);
+      adminInitPromise = null;
     }
-  } catch (initErr) {
-    console.warn('Admin auto-init check warning:', initErr.message);
-  }
-});
+  })();
+
+  return adminInitPromise;
+};
+
 
 // ==========================================
 // Security Middlewares
@@ -117,23 +129,33 @@ app.get('*', (req, res) => {
   res.status(404).sendFile(path.join(frontendPath, '404.html'));
 });
 
-// Start Server// Start Server only when running locally/Docker
-if (require.main === module) {
-  const server = app.listen(PORT, () => {
-    console.log(`\n======================================================`);
-    console.log(`🔒 SecureAuth Server running on: http://localhost:${PORT}`);
-    console.log(`📋 Environment: ${process.env.NODE_ENV || 'development'}`);
-    console.log(`📁 Frontend served from: ${frontendPath}`);
-    console.log(`======================================================\n`);
-  });
+// Attach admin initialization helper for serverless invocations
+app.ensureDefaultAdmin = ensureDefaultAdmin;
 
-  // Handle graceful shutdown
-  process.on('SIGTERM', () => {
-    console.log('SIGTERM signal received: closing HTTP server');
-    server.close(() => {
-      console.log('HTTP server closed');
+// Start Server only when running locally/Docker
+if (require.main === module) {
+  connectDB()
+    .then(() => ensureDefaultAdmin())
+    .catch((err) => {
+      console.warn('Startup database initialization warning:', err.message);
+    })
+    .finally(() => {
+      const server = app.listen(PORT, () => {
+        console.log(`\n======================================================`);
+        console.log(`🔒 SecureAuth Server running on: http://localhost:${PORT}`);
+        console.log(`📋 Environment: ${process.env.NODE_ENV || 'development'}`);
+        console.log(`📁 Frontend served from: ${frontendPath}`);
+        console.log(`======================================================\n`);
+      });
+
+      // Handle graceful shutdown
+      process.on('SIGTERM', () => {
+        console.log('SIGTERM signal received: closing HTTP server');
+        server.close(() => {
+          console.log('HTTP server closed');
+        });
+      });
     });
-  });
 }
 
 module.exports = app;

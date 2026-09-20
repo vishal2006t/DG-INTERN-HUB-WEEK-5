@@ -112,10 +112,24 @@ const MongooseUser = mongoose.models.User || mongoose.model('User', userSchema);
 // ==========================================
 // 2. Local Persistence Store (Zero-Config Fallback)
 // ==========================================
+const isVercel = Boolean(process.env.VERCEL || process.env.VERCEL_ENV);
+const isProduction = isVercel || (process.env.NODE_ENV === 'production' && Boolean(process.env.MONGODB_URI));
+
+function useMongoose() {
+  // In production or on Vercel, strictly use Mongoose and never fall back to local JSON
+  if (isProduction || isVercel) {
+    return true;
+  }
+  return mongoose.connection.readyState === 1;
+}
+
 const DATA_DIR = path.join(__dirname, '../data');
 const LOCAL_DB_FILE = path.join(DATA_DIR, 'local_users.json');
 
 function ensureDataDir() {
+  if (isProduction || isVercel) {
+    throw new Error('EROFS protection: Local filesystem access is prohibited in production environment.');
+  }
   if (!fs.existsSync(DATA_DIR)) {
     fs.mkdirSync(DATA_DIR, { recursive: true });
   }
@@ -381,42 +395,42 @@ const LocalUser = {
 // ==========================================
 class UserProxy {
   constructor(data) {
-    if (mongoose.connection.readyState === 1) {
+    if (useMongoose()) {
       return new MongooseUser(data);
     }
     return new LocalUserDoc(data);
   }
 
   static findOne(query) {
-    if (mongoose.connection.readyState === 1) {
+    if (useMongoose()) {
       return MongooseUser.findOne(query);
     }
     return LocalUser.findOne(query);
   }
 
   static findById(id) {
-    if (mongoose.connection.readyState === 1) {
+    if (useMongoose()) {
       return MongooseUser.findById(id);
     }
     return LocalUser.findById(id);
   }
 
   static find(query) {
-    if (mongoose.connection.readyState === 1) {
+    if (useMongoose()) {
       return MongooseUser.find(query);
     }
     return LocalUser.find(query);
   }
 
   static countDocuments(query) {
-    if (mongoose.connection.readyState === 1) {
+    if (useMongoose()) {
       return MongooseUser.countDocuments(query);
     }
     return LocalUser.countDocuments(query);
   }
 
   static findByIdAndDelete(id) {
-    if (mongoose.connection.readyState === 1) {
+    if (useMongoose()) {
       return MongooseUser.findByIdAndDelete(id);
     }
     return LocalUser.findByIdAndDelete(id);

@@ -35,6 +35,21 @@ const errorHandler = (err, req, res, next) => {
     });
   }
 
+  // Database Connection / Network errors (protect credentials from client exposure)
+  if (
+    err.name === 'MongoServerSelectionError' ||
+    err.name === 'MongooseServerSelectionError' ||
+    err.name === 'MongoNetworkError' ||
+    err.name === 'MongoTimeoutError' ||
+    (err.message && (err.message.includes('MONGODB_URI') || err.message.includes('Database connection failed')))
+  ) {
+    return res.status(500).json({
+      success: false,
+      error: 'Database connection failed',
+      message: 'Database connection failed',
+    });
+  }
+
   res.status(statusCode).json({
     success: false,
     message: err.message || 'An unexpected internal server error occurred.',
